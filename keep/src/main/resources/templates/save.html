@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+</head>
+<body>
+    <form action="/member/save" method="post">
+        id: <input type="text" name="id" id ="id"> <input type="button" onclick="isMemberIdAvailable()" value="중복체크"><br>
+        이메일: <input type="text" name="memberEmail" id ="memberEmail"> <br>
+        비밀번호: <input type="password" name="memberPassword" id="memberPassword"> <br>
+        이름 : <input type="text" name="memberName" id="memberName"> <br>
+        <input type="button" onclick="fncIdChk()" value="회원가입">
+    </form>
+    <input type="button" onclick="fncIdChk()" value="회원가입">
+</body>
+<script type="text/javascript">
+function isMemberIdAvailable(){
+	let id = document.getElementById("id").value;
+	fetch("/api/member/existsByMemberId", {
+		method: "POST",
+		headers: {"Content-Type": "application/json",},
+		body: JSON.stringify({id: id,}),
+	}).then((response) => response.json())
+	  .then((data) => console.log(data));
+}
+</script>
+</html>
